@@ -1,0 +1,110 @@
+<!-- 1-12
+19-120 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Crystal Collector</title>
+
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <h1>Crystal Collector</h1>
+    <h2 id="masterNumber"> </h2>
+    <button id="c1">◈</button>
+    <button id="c2">◈</button>
+    <button id="c3">◈</button>
+    <button id="c4">◈</button>
+    <h2 id="currentNumber"> </h2>
+    <p id="currentState"></p>
+    <p>Wins: <span id="wins"> 0</span></p>
+    <p>Losses: <span id="losses"> 0</span></p>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            function randomRange(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min);
+            }
+
+            var masterNumber;
+            var c1;
+            var c2;
+            var c3;
+            var c4;
+            var currentNumber;
+            var wins = 0;
+            var losses = 0;
+
+            function reset() {
+                masterNumber = randomRange(19, 120);
+                c1 = randomRange(1, 12);
+                c2 = randomRange(1, 12);
+                c3 = randomRange(1, 12);
+                c4 = randomRange(1, 12);
+                currentNumber = 0;
+                document.getElementById("masterNumber").innerHTML = masterNumber;
+                document.getElementById("currentNumber").innerHTML = currentNumber;
+                document.getElementById("currentState").innerHTML = "";
+
+            }
+
+            reset();
+          
+
+
+            function buttonPressed(c) {
+
+                if (currentNumber < masterNumber) {
+                    currentNumber = currentNumber + c;
+                }
+
+                if (currentNumber === masterNumber) {
+                    wins++;
+                    reset();
+                    document.getElementById("currentState").innerHTML = "You win!!!";
+                
+                }
+
+                if (currentNumber > masterNumber) {
+                    losses++;
+                    reset();
+                    document.getElementById("currentState").innerHTML = "You lose!!!";
+                }
+                document.getElementById("wins").innerHTML = wins;
+                document.getElementById("losses").innerHTML = losses;
+                document.getElementById("currentNumber").innerHTML = currentNumber;
+            }
+
+            $("body").on("click", "#c1", function () {
+                buttonPressed(c1);
+            });
+
+            $("body").on("click", "#c2", function () {
+                buttonPressed(c2);
+
+            });
+            $("body").on("click", "#c3", function () {
+                buttonPressed(c3);
+
+            });
+            $("body").on("click", "#c4", function () {
+                buttonPressed(c4);
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
